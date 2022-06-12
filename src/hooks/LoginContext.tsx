@@ -64,8 +64,6 @@ export const LoginProvider = ({children}: {children: JSX.Element}) => {
     const accessTokenData = decodeToken(accessToken); 
     const refreshTokenData = decodeToken(refreshToken);
     
-    console.log("access", accessTokenData)
-    console.log("refresh", refreshTokenData)
     if(new Date() > new Date(accessTokenData.exp)) {
       setLoginData(accessTokenData);
     } else if(new Date() > new Date(refreshTokenData.exp)) {
@@ -78,8 +76,6 @@ export const LoginProvider = ({children}: {children: JSX.Element}) => {
       logout();
     }
   }
-
-
 
   return <LoginContext.Provider value={loginData}>
     <UpdateLoginContext.Provider value={updateLogin}> 

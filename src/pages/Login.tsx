@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { TextField, PrimaryButton, MessageBar, MessageBarType, DefaultButton } from "@fluentui/react";
 import {useNavigate} from "react-router-dom";
-import { useLogin } from "../hooks/LoginContext";
+import { useLogin, useUpdateLogin } from "../hooks/LoginContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<null | string>(null);
   const login = useLogin();
+  const updateLogin = useUpdateLogin();
   const navigate = useNavigate();
 
    const postLogin = async (email: string, password: string) => {
@@ -27,6 +28,7 @@ export default function Login() {
     const {accessToken, refreshToken} = await res.json();
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    updateLogin?.();
     navigate("../user")
   }
 
